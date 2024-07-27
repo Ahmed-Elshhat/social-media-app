@@ -1,0 +1,263 @@
+.Home {
+  background-color: $backgroundDarkMode;
+  color: white;
+  @extend %df-j-cent-a-start;
+  gap: 25px;
+  min-height: calc(100vh - 74px);
+  padding-top: 15px;
+  padding: 15px 15px 0;
+  overflow: hidden;
+
+  .recent-activity {
+    background-color: #282828;
+    width: 340px;
+    height: calc(95vh - 60px);
+    padding: 25px;
+    @include borderRadius(15px);
+
+    @media (max-width: 1100px) {
+      display: none;
+    }
+
+    header {
+      @extend %df-j-bet-a-cent;
+      margin-bottom: 20px;
+      h3 {
+        font-size: 16px;
+        text-transform: capitalize;
+      }
+      button {
+        background-color: $mainColor;
+        width: 91px;
+        padding: 5px 20px;
+        font: {
+          size: 15px;
+          weight: 700;
+        }
+        text-transform: capitalize;
+        border: none;
+        outline: none;
+        @include transition(all, 0.5s, 0s, ease);
+        @include borderRadius(15px);
+        cursor: pointer;
+
+        &:hover {
+          box-shadow: 0px 0px 8px 2px $mainColor;
+        }
+      }
+    }
+
+    .recent-activity-cards {
+      overflow-x: hidden;
+      height: 93%;
+
+      &::-webkit-scrollbar {
+        width: 0px;
+      }
+
+      .recent-activity-card {
+        background-color: rgba(26, 26, 26, 72%);
+        width: 290px;
+        padding: 15px 20px;
+        margin-bottom: 18px;
+        @include borderRadius(10px);
+        .content {
+          @extend %df-j-start-a-cent;
+          gap: 10px;
+          margin-bottom: 10px;
+          .image {
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            @include borderRadius(50%);
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+
+          .info {
+            h4 {
+              margin-bottom: 2px;
+              font-size: 16px;
+              text-transform: capitalize;
+              cursor: pointer;
+            }
+            p {
+              font-size: 13px;
+              span {
+                color: $mainColor;
+                word-spacing: -1px;
+              }
+            }
+          }
+        }
+
+        .btns {
+          background-color: $backgroundDarkMode;
+          text-align: center;
+          @include borderRadius(15px);
+          button {
+            background-color: $mainColor;
+            width: 120px;
+            padding: 2px 0px;
+            font-size: 13px;
+            text-align: center;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            @include borderRadius(15px);
+            @include transition(all, 0.5s, 0s, ease);
+
+            &:hover {
+              box-shadow: 0px 0px 8px 2px $mainColor;
+            }
+
+            &:first-of-type {
+              background-color: rgba(255, 0, 0, 0.932);
+              margin-right: 4px;
+
+              &:hover {
+                box-shadow: 0px 0px 8px 2px red;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .center {
+    width: 620px;
+    height: calc(100vh - 90px);
+    overflow-x: hidden;
+    padding: 0 5px;
+
+    @media (max-width: 1370px) {
+      width: 60%;
+    }
+
+    @media (max-width: 900px) {
+      width: 100%;
+    }
+
+
+
+    &::-webkit-scrollbar {
+      background-color: #222;
+      width: 5px;
+      @media (max-width: 900px) {
+        width: 0px;
+      }
+    }
+
+    &::-webkit-scroenlbar-track {
+      background-color: #ddd;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #30b0c72b;
+      height: 100px;
+      @include borderRadius(10px);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: $mainColor;
+    }
+
+
+
+
+
+  }
+
+  .Friends-section {
+    background-color: #282828;
+    width: 340px;
+    height: calc(95vh - 60px);
+    padding: 20px 25px;
+    @include borderRadius(15px);
+    position: relative;
+
+    @media (max-width: 900px) {
+      display: none;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 15px;
+      h2 {
+        color: rgba(255, 255, 255, 50%);
+        font: {
+          size: 36px;
+          weight: 700;
+        }
+      }
+    }
+
+    .friends {
+      overflow-x: hidden;
+      height: 90%;
+      &::-webkit-scrollbar {
+        width: 0px;
+      }
+      .friend {
+        @extend %df-j-start-a-cent;
+        cursor: pointer;
+        gap: 10px;
+        margin-bottom: 15px;
+        .image {
+          width: 60px;
+          height: 60px;
+          @include borderRadius(50%);
+          overflow: hidden;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        .info {
+          .name-and-time {
+            @extend %df-j-start-a-cent;
+            gap: 10px;
+            h4 {
+              color: rgba(255, 255, 255, 50%);
+              text-transform: capitalize;
+              font: {
+                size: 18px;
+                weight: bold;
+              }
+            }
+            span {
+              color: #707070;
+              font: {
+                size: 12px;
+                weight: bold;
+              }
+            }
+          }
+          .message {
+            color: rgba(255, 255, 255, 50%);
+            font-size: 15px;
+          }
+        }
+      }
+    }
+
+    // .see-all {
+    //   position: absolute;
+    //   right: 20px;
+    //   margin-top: -10px;
+    //   button {
+    //     background-color: transparent;
+    //     color: #707070;
+    //     font-size: 18px;
+    //     text-transform: capitalize;
+    //     border: none;
+    //     outline: none;
+    //     cursor: pointer;
+    //   }
+    // }
+  }
+}

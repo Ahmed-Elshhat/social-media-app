@@ -1,0 +1,85 @@
+/* 
+  ** Media Query Mixin For Help Only
+*/
+
+@mixin minMedium {
+  @media (min-width: 992px) {
+    @content;
+  }
+}
+
+/* 
+  ** Overlay Mixin
+  ** Overlay Main Properties
+*/
+
+@mixin overlay($background-color, $opacity, $z-index) {
+  background-color: $background-color;
+  opacity: $opacity;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: $z-index;
+}
+
+/* 
+  ** Prefixes Mixin
+  ** Auto Add Prefixes To Properties
+*/
+
+@mixin prefixer($property, $value, $prefixes: ()) {
+  #{$property}: $value;
+  @each $prefix in $prefixes {
+    #{"-" + $prefix + "-" + $property}: $value;
+  }
+}
+/* 
+  ** Animation Mixin
+  ** Auto Add Prefixes To Animation
+*/
+
+@mixin keyFrame($animation-name, $prefixes: ()) {
+  // @each $prefix in $prefixes {
+  //   @-#{$prefix}-keyframes #{$animation-name} {
+  //     @content;
+  //   }
+  // }
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+/* 
+  borderRadius
+ */
+
+@mixin borderRadius($percentage) {
+  border-radius: $percentage;
+  -webkit-border-radius: $percentage;
+  -moz-border-radius: $percentage;
+  -ms-border-radius: $percentage;
+  -o-border-radius: $percentage;
+}
+
+@mixin transition($property, $duration, $delay, $timingFunction) {
+  transition: $property $duration $delay $timingFunction;
+  -webkit-transition: $property $duration $delay $timingFunction;
+  -moz-transition: $property $duration $delay $timingFunction;
+  -ms-transition: $property $duration $delay $timingFunction;
+  -o-transition: $property $duration $delay $timingFunction;
+}
+

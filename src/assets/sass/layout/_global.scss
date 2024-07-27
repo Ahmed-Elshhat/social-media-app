@@ -1,0 +1,41 @@
+/* Start Global Rules */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+}
+
+body {
+  font-family: "Work Sans", sans-serif;
+  scroll-behavior: smooth;
+  position: relative;
+}
+
+/* Start Container */
+.container {
+  padding: 0 15px;
+  margin: 0 auto;
+
+  @media #{$minSmall} {
+    width: 750px;
+  }
+
+  @media #{$maxMedium} {
+    width: 970px;
+  }
+
+  @media #{$maxLarge} {
+    width: 1170px;
+  }
+}
+
+a {
+  display: block;
+  text-decoration: none;
+}
+/* End Container */
+/* End Global Rules */

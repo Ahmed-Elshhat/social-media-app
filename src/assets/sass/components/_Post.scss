@@ -1,0 +1,133 @@
+.post {
+  background-color: rgba(40, 40, 40, 10%);
+  width: 100%;
+  padding: 10px 10px;
+  margin-top: 25px;
+  @include borderRadius(15px);
+  header {
+    @extend %df-j-bet-a-cent;
+    padding: 0 15px;
+    margin-bottom: 15px;
+    .post-creator-info {
+      @extend %df-j-bet-a-cent;
+      gap: 10px;
+      .image {
+        width: 60px;
+        height: 60px;
+        overflow: hidden;
+        @include borderRadius(50%);
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      .name-and-time {
+        h4 {
+          color: #d6d2d2;
+          margin-bottom: -4px;
+          font: {
+            size: 18px;
+            weight: 800;
+          }
+        }
+
+        span {
+          color: #707070;
+          display: block;
+          font: {
+            size: 15px;
+            weight: 800;
+          }
+        }
+      }
+    }
+
+    .posts-setting {
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 100%;
+        right: 3px;
+        border: 20px solid;
+        display: none;
+        border-color: transparent transparent #333334 transparent;
+        transform: rotate(-90deg);
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+      }
+
+      i {
+        font-size: 30px;
+        cursor: pointer;
+      }
+
+      ul {
+        display: none;
+        position: absolute;
+        top: calc(100% + 16px);
+        right: 3px;
+        @include borderRadius(10px);
+        list-style: none;
+        background-color: #333334;
+        min-width: 200px;
+        li {
+          width: 100%;
+          padding: 10px;
+        }
+      }
+    }
+  }
+
+  .description {
+    width: 100%;
+    color: #d3d1d1;
+    padding: 0 20px;
+    margin-bottom: 15px;
+    font-size: 18px;
+  }
+
+  .post-image {
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    @include borderRadius(20px);
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .activity {
+    @extend %df-j-bet-a-cent;
+    width: 100%;
+    margin-top: 10px;
+    ul {
+      @extend %df-j-bet-a-cent;
+      list-style: none;
+      li {
+        cursor: pointer;
+        @extend %df-j-bet-a-cent;
+        margin: 0 10px;
+        i {
+          margin-right: 4px;
+          font-size: 25px;
+        }
+
+        span {
+          font-size: 19px;
+        }
+      }
+    }
+
+    span {
+      font-size: 25px;
+      cursor: pointer;
+    }
+  }
+}
