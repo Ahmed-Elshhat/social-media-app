@@ -112,7 +112,7 @@ function CreatePostPopup() {
             </header>
 
             <textarea
-              placeholder="Write....."
+              placeholder="Write"
               name="text"
               value={form.text}
               onChange={handleChanges}
