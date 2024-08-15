@@ -1,7 +1,7 @@
 import personImg from "../../images/person-img.png";
 import friendImg from "../../images/person-img.png";
 import Status from "../../components/Status/Status";
-import CreatePost from "../../components/CreatePost/CreatePost";
+import CreatePost from "../../components/Posts/CreatePost/CreatePost";
 import Posts from "../../components/Posts/Posts";
 import "./Home.scss";
 
@@ -199,9 +199,7 @@ function Home() {
 
       <div className="center">
         <Status />
-
         <CreatePost />
-
         <Posts />
       </div>
 

@@ -10,6 +10,7 @@
 // **************************************************************************
 //                                        Only
 /// This is Display Flex And Justify-Content: flex-start;
+// df-j
 %df-j-start {
   display: flex;
   justify-content: flex-start;
@@ -40,6 +41,45 @@
   justify-content: space-evenly;
 }
 
+// df-a
+
+%df-a-start {
+  display: flex;
+  align-items: flex-start;
+}
+/// This is Display Flex And Align-Items: center;
+%df-a-cent {
+  display: flex;
+  align-items: center;
+}
+/// This is Display Flex And Align-Items: flex-end;
+%df-a-end {
+  display: flex;
+  align-items: flex-end;
+}
+
+/// This is Display Flex And Align-Items: baseline;
+%df-a-bl {
+  display: flex;
+  align-items: baseline;
+}
+
+/// This is Display Flex And Align-Items: space-between;
+%df-a-bet {
+  display: flex;
+  align-items: space-between;
+}
+/// This is Display Flex And Align-Items: space-around;
+%df-a-ar {
+  display: flex;
+  align-items: space-around;
+}
+/// This is Display Flex And Align-Items: space-evenly;
+%df-a-even {
+  display: flex;
+  align-items: space-evenly;
+}
+
 //                                        Start
 /// This is Display Flex And Justify-Content: flex-start; And Align-Items: flex-start;
 %df-j-start-a-start {
@@ -60,6 +100,13 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
+}
+
+/// This is Display Flex And Justify-Content: flex-start; And Align-Items: baseline;
+%df-j-start-a-bl {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
 }
 
 //                                       Center
@@ -84,6 +131,13 @@
   align-items: flex-end;
 }
 
+/// This is Display Flex And Justify-Content: center; And Align-Items: baseline;
+%df-j-cent-a-bl {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
 //                                      End
 /// This is Display Flex And Justify-Content: flex-end; And Align-Items: flex-start;
 %df-j-end-a-start {
@@ -106,6 +160,14 @@
   align-items: flex-end;
 }
 
+/// This is Display Flex And Justify-Content: flex-end; And Align-Items: baseline;
+%df-j-end-a-bl {
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+}
+
+
 //                                     Between
 /// This is Display Flex And Justify-Content: space-between; And Align-Items: flex-start;
 %df-j-bet-a-start {
@@ -126,6 +188,13 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+}
+
+/// This is Display Flex And Justify-Content: space-between; And Align-Items: baseline;
+%df-j-bet-a-bl {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 //                                    Around
@@ -150,6 +219,13 @@
   align-items: flex-end;
 }
 
+/// This is Display Flex And Justify-Content: space-around; And Align-Items: baseline;
+%df-j-ar-a-bl {
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
+}
+
 //                                   Evenly
 /// This is Display Flex And Justify-Content: space-evenly; And Align-Items: flex-start;
 %df-j-even-a-start {
@@ -170,6 +246,13 @@
   display: flex;
   justify-content: space-evenly;
   align-items: flex-end;
+}
+
+/// This is Display Flex And Justify-Content: space-evenly; And Align-Items: baseline;
+%df-j-even-a-bl {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
 }
 
 // **************************************************************************

@@ -7,10 +7,18 @@ import Notification from "./pages/Notification/Notification";
 import Chat from "./pages/Chat/Chat";
 import Profile from "./pages/Profile/Profile";
 import NavBar from "./components/NavBar/NavBar";
+import Search from "./pages/Search/Search";
+import Reels from "./pages/Reels/Reels";
+import CreateReel from "./pages/Reels/CreateReel/CreateReel";
+import Live from "./pages/Live/Live";
+import Login from "./pages/Auth/Login/Login";
+import Register from "./pages/Auth/Register/Register";
+import CreatePostPopup from "./components/Popups/CreatePostPopup/CreatePostPopup";
 
 function App() {
   return (
     <div className="App">
+      <CreatePostPopup />
       <Routes>
         <Route
           path="/"
@@ -22,6 +30,9 @@ function App() {
             </>
           }
         />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         <Route
           path="/friends"
@@ -77,6 +88,22 @@ function App() {
             </>
           }
         />
+
+        <Route
+          path="/live"
+          element={
+            <>
+              <Header />
+              <Live />
+              <NavBar />
+            </>
+          }
+        />
+
+        <Route path="/search" element={<Search />} />
+        <Route path="/reel" element={<Reels />} />
+        <Route path="/reel/:reelId" element={<Reels />} />
+        <Route path="/reel/create" element={<CreateReel />} />
       </Routes>
     </div>
   );

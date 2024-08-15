@@ -1,0 +1,281 @@
+.create-post-popup {
+  background-color: rgba(0, 0, 0, 0.473);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  @extend %df-j-cent-a-cent;
+  .create-post-container {
+    background-color: rgb(30, 29, 29);
+    width: 500px;
+    height: 600px;
+    padding: 15px 20px;
+    @include borderRadius(10px);
+
+    header {
+      margin-bottom: 15px;
+      .title-and-close {
+        @extend %df-a-cent;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.717);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        button.close-window {
+          cursor: pointer;
+          background-color: #777;
+          width: 30px;
+          height: 30px;
+          outline: none;
+          border: none;
+          @include borderRadius(50%);
+          i.close-window {
+            color: white;
+            font-size: 20px;
+          }
+        }
+
+        h2 {
+          user-select: none;
+          color: white;
+          width: 100%;
+          text-align: center;
+          text-transform: capitalize;
+        }
+      }
+
+      .user-info {
+        @extend %df-a-cent;
+        gap: 10px;
+        .image {
+          width: 50px;
+          height: 50px;
+          @include borderRadius(50%);
+          overflow: hidden;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .name-and-authorization {
+          h4 {
+            color: white;
+          }
+          select {
+            border: none;
+            outline: none;
+            background-color: #444;
+            color: white;
+            width: 80px;
+            text-align: center;
+            @include borderRadius(2px);
+            cursor: pointer;
+
+            option {
+              background-color: #777;
+            }
+          }
+        }
+      }
+    }
+
+    & > textarea {
+      width: 100%;
+      height: 70px;
+      padding: 10px;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      color: white;
+      font-size: 20px;
+      resize: none;
+
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      &::-webkit-scroenlbar-track {
+        background-color: #ddd;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 255, 0.301);
+        cursor: pointer;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: blue;
+      }
+    }
+
+    .images {
+      width: 100%;
+      height: 250px;
+      position: relative;
+      button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        cursor: pointer;
+        background-color: #777;
+        width: 30px;
+        height: 30px;
+        outline: none;
+        border: none;
+        @include borderRadius(50%);
+        i {
+          color: white;
+          font-size: 20px;
+        }
+      }
+
+      .images-container {
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        &::-webkit-scrollbar {
+          width: 10px;
+        }
+  
+        &::-webkit-scroenlbar-track {
+          background-color: #ddd;
+        }
+  
+        &::-webkit-scrollbar-thumb {
+          background-color: rgba(0, 0, 255, 0.301);
+          cursor: pointer;
+          border-radius: 10px;
+          -webkit-border-radius: 10px;
+          -moz-border-radius: 10px;
+          -ms-border-radius: 10px;
+          -o-border-radius: 10px;
+        }
+  
+        &::-webkit-scrollbar-thumb:hover {
+          background-color: blue;
+        }
+
+        .image {
+          display: none;
+          width: 100%;
+          height: 100%;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            user-select: none;
+          }
+
+          &:nth-child(1),
+          &:nth-child(2),
+          &:nth-child(3),
+          &:nth-child(4)
+          {
+            display: block;
+          }
+        }
+      }
+
+      .images-container-3 {
+        display: flex;
+        flex-wrap: wrap;
+
+        .image:first-child {
+          width: 100%;
+        }
+
+        .image:not(:first-child) {
+          width: 50%;
+          height: 50%;
+        }
+      }
+
+      .images-container-4 {
+        display: flex;
+        flex-wrap: wrap;
+
+        .image:first-child {
+          width: 100%;
+        }
+
+        .image:not(:first-child) {
+          width: 33.33%;
+          height: 50%;
+        }
+      }
+
+      .images-container-exceeds-4 {
+        display: flex;
+        flex-wrap: wrap;
+
+        .image:first-child {
+          width: 100%;
+        }
+
+        .image:not(:first-child) {
+          width: 33.33%;
+          height: 50%;
+        }
+
+        .image:nth-child(4) {
+          position: relative;
+          cursor: pointer;
+          &::before {
+            content: attr(data-imagecount);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.464);
+            @extend %df-j-cent-a-cent;
+            color: white;
+            word-spacing: -10px;
+            font-size: 30px
+          }
+        }
+      }
+    }
+
+    .add-images {
+      @extend %df-j-bet-a-cent;
+      padding: 10px 20px;
+      border: 1px solid white;
+      @include borderRadius(5px);
+      margin: 15px 0;
+      input {
+        display: none;
+      }
+      i {
+        color: white;
+        font-size: 30px;
+        cursor: pointer;
+      }
+      h3 {
+        color: white;
+      }
+    }
+
+    .send-btn {
+      background-color: blue;
+      border: none;
+      outline: none;
+      width: 100%;
+      padding: 10px;
+      cursor: pointer;
+      @include borderRadius(10px);
+      color: white;
+      font-size: 19px;
+    }
+  }
+}

@@ -22,6 +22,7 @@
           object-fit: cover;
         }
       }
+
       .name-and-time {
         h4 {
           color: #d6d2d2;
@@ -44,48 +45,63 @@
     }
 
     .posts-setting {
-      position: relative;
-
-      &::before {
-        content: "";
-        position: absolute;
-        top: 100%;
-        right: 3px;
-        border: 20px solid;
-        display: none;
-        border-color: transparent transparent #333334 transparent;
-        transform: rotate(-90deg);
-        -webkit-transform: rotate(-90deg);
-        -moz-transform: rotate(-90deg);
-        -ms-transform: rotate(-90deg);
-        -o-transform: rotate(-90deg);
-      }
-
-      i {
-        font-size: 30px;
-        cursor: pointer;
-      }
-
-      ul {
-        display: none;
-        position: absolute;
-        top: calc(100% + 16px);
-        right: 3px;
-        @include borderRadius(10px);
-        list-style: none;
-        background-color: #333334;
-        min-width: 200px;
-        li {
-          width: 100%;
-          padding: 10px;
+      button {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        i {
+          color: white;
+          font-size: 30px;
+          cursor: pointer;
         }
       }
+
+      .list-container {
+        // display: none;
+        position: relative;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 100%;
+          right: 3px;
+          border: 20px solid;
+          border-color: transparent transparent #333334 transparent;
+          transform: rotate(-90deg);
+          -webkit-transform: rotate(-90deg);
+          -moz-transform: rotate(-90deg);
+          -ms-transform: rotate(-90deg);
+          -o-transform: rotate(-90deg);
+        }
+
+        ul {
+          background-color: #333334;
+          position: absolute;
+          right: 3px;
+          top: calc(100% + 16px);
+          min-width: 200px;
+          padding: 5px 5px;
+          list-style: none;
+          overflow: hidden;
+          li {
+            width: 100%;
+            padding: 15px 10px;
+            @include borderRadius(4px);
+            cursor: pointer;
+            &:hover {
+              background-color: #666;
+            }
+          }
+        }
+      }
+
+      
     }
   }
 
   .description {
-    width: 100%;
     color: #d3d1d1;
+    width: 100%;
     padding: 0 20px;
     margin-bottom: 15px;
     font-size: 18px;
@@ -107,6 +123,7 @@
     @extend %df-j-bet-a-cent;
     width: 100%;
     margin-top: 10px;
+
     ul {
       @extend %df-j-bet-a-cent;
       list-style: none;

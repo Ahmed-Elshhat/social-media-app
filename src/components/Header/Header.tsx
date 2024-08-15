@@ -1,11 +1,38 @@
-import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.png";
 import personImg from "../../images/person-img.png";
 import "./Header.scss";
+import { useAppSelector } from "../../app/hooks";
 
 function Header() {
+  const windowSize = useAppSelector((state) => state.window.windowSize);
   const [searchInput, setSearchInput] = useState<string>("");
+  const [searchOpen, setSearchOpen] = useState<boolean>(false);
+  const input = useRef<HTMLInputElement | null>(null);
+  const searchContainer = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (windowSize < 900 && windowSize > 500) {
+      document.addEventListener("click", (e: MouseEvent) => {
+        const target = e.target as HTMLElement;
+        if (
+          !target?.classList?.contains("search-item") &&
+          input.current !== null &&
+          searchContainer.current !== null
+        ) {
+          input.current.style.display = "none";
+          searchContainer.current.style.minWidth = "55px";
+          setSearchOpen(false);
+        }
+      });
+    }
+  }, [windowSize]);
+
+  // Search Function
+  function search() {
+    console.log("search");
+  }
   return (
     <header className="header">
       <div className="container">
@@ -70,14 +97,80 @@ function Header() {
           </ul>
         </nav>
 
-        <div className="search">
+        <div
+          ref={searchContainer}
+          className="search"
+          style={{
+            minWidth:
+              windowSize < 900 && windowSize > 500
+                ? searchOpen
+                  ? "261.25px"
+                  : "55px"
+                : windowSize <= 500
+                ? "55px"
+                : "261.25px",
+          }}
+        >
           <input
+            ref={input}
             type="text"
             value={searchInput}
             placeholder="Search People"
             onChange={(e) => setSearchInput(e.target.value)}
+            className="search-item"
+            style={{
+              display:
+                windowSize < 900 && windowSize > 500
+                  ? searchOpen
+                    ? "block"
+                    : "none"
+                  : windowSize <= 500
+                  ? "none"
+                  : "block",
+            }}
           />
-          <i className="fa-solid fa-magnifying-glass"></i>
+          <i
+            className="fa-solid fa-magnifying-glass search-item"
+            onClick={() =>
+              windowSize < 900 && windowSize > 500
+                ? searchOpen
+                  ? search()
+                  : setSearchOpen(true)
+                : windowSize <= 500
+                ? navigate("/search")
+                : search()
+            }
+          ></i>
+
+          <div className="results-search">
+            <div className="results-search-item">
+              <div className="image">
+                <img src={personImg} alt="" />
+              </div>
+              <span className="name">Ahmed</span>
+            </div>
+
+            <div className="results-search-item">
+              <div className="image">
+                <img src={personImg} alt="" />
+              </div>
+              <span className="name">Ahmed</span>
+            </div>
+
+            <div className="results-search-item">
+              <div className="image">
+                <img src={personImg} alt="" />
+              </div>
+              <span className="name">Ahmed</span>
+            </div>
+
+            <div className="results-search-item">
+              <div className="image">
+                <img src={personImg} alt="" />
+              </div>
+              <span className="name">Ahmed</span>
+            </div>
+          </div>
         </div>
       </div>
     </header>
