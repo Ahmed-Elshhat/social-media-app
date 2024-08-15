@@ -82,7 +82,7 @@ function CreatePostPopup() {
         <div className="create-post-popup">
           <div
             className="create-post-container"
-            style={{ height: images.length > 0 ? "95vh" : "390px" }}
+            style={{ height: images.length > 0 ? "600px" : "390px" }}
           >
             <header>
               <div className="title-and-close">
