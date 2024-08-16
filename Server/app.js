@@ -4,7 +4,6 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./middleware/errorHandler"); // Adjust the path to your global error handler
-const swagger = require("./swagger");
 
 const app = express();
 

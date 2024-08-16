@@ -9,7 +9,6 @@ const DB = process.env.DATABASE.replace(
 );
 
 const port = process.env.PORT || 3000;
-console.log(DB);
 mongoose.connect(DB).then(() => {
   // eslint-disable-next-line no-console
   console.log("Database connected successfully");
