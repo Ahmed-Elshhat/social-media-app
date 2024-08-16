@@ -3,12 +3,41 @@ import SignUpImage from "../../../images/login-image.png";
 import Logo from "../../../images/logo.png";
 import "./Register.scss";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL, SIGN_UP, USERS } from "../../../components/Api/Endpointes";
 
 function Register() {
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    userName: "",
+    email: "",
+    password: "",
+    passwordConfirm: "",
+  });
   const [showPassStatus, setShowPassStatus] = useState<boolean>(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  // Handle Changes
+  function handleChanges(e: React.ChangeEvent<HTMLInputElement>) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    try {
+      const res = await axios.post(`${BASE_URL}/${USERS}/${SIGN_UP}`, {
+        firstName: form.firstName,
+        lastName: form.lastName,
+        userName: form.userName,
+        email: form.email,
+        password: form.password,
+        passwordConfirm: form.passwordConfirm,
+      });
+
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   //     <section className="signup h-screen">
@@ -25,13 +54,39 @@ function Register() {
           <div className="form-side">
             <h2>welcome back</h2>
             <form onSubmit={handleSubmit}>
-              <div className="username">
-                <label htmlFor="username">Username</label>
+              <div className="first-name">
+                <label htmlFor="firstName">First Name</label>
                 <input
                   type="text"
-                  id="username"
+                  name="firstName"
+                  id="firstName"
+                  placeholder="First Name"
+                  autoComplete="off"
+                  onChange={handleChanges}
+                />
+              </div>
+
+              <div className="last-name">
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  placeholder="Last-name"
+                  autoComplete="off"
+                  onChange={handleChanges}
+                />
+              </div>
+
+              <div className="username">
+                <label htmlFor="userName">Username</label>
+                <input
+                  type="text"
+                  name="userName"
+                  id="userName"
                   placeholder="Username"
                   autoComplete="off"
+                  onChange={handleChanges}
                 />
               </div>
 
@@ -39,9 +94,11 @@ function Register() {
                 <label htmlFor="email">Email</label>
                 <input
                   type="email"
+                  name="email"
                   id="email"
                   placeholder="Email"
                   autoComplete="off"
+                  onChange={handleChanges}
                 />
               </div>
 
@@ -51,8 +108,10 @@ function Register() {
                 </label>
                 <input
                   type={showPassStatus ? "text" : "password"}
+                  name="password"
                   id="password"
                   placeholder="Password"
+                  onChange={handleChanges}
                 />
 
                 {showPassStatus ? (
@@ -69,11 +128,13 @@ function Register() {
               </div>
 
               <div className="confirm-pass">
-                <label htmlFor="confirm-pass">Confirm Password</label>
+                <label htmlFor="password-confirm">Password Confirm</label>
                 <input
                   type={showPassStatus ? "text" : "password"}
-                  id="confirm-pass"
-                  placeholder="Confirm Password"
+                  name="passwordConfirm"
+                  id="password-confirm"
+                  placeholder="Password Confirm"
+                  onChange={handleChanges}
                 />
 
                 {showPassStatus ? (
@@ -89,18 +150,10 @@ function Register() {
                 )}
               </div>
 
-              <div className="phone">
-                <label htmlFor="phone">Phone</label>
-                <input
-                  type="text"
-                  id="phone"
-                  placeholder="Phone"
-                  autoComplete="off"
-                />
-              </div>
-
               <div className="form-btns">
-                <button>sign UP</button>
+                <button type="submit" onSubmit={handleSubmit}>
+                  sign UP
+                </button>
                 <button>sign UP with google</button>
               </div>
 
