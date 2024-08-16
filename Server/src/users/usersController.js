@@ -1,5 +1,5 @@
 const User = require("./usersModel");
-const catchAsync = require("express-async-handler");
+const catchAsync = require("../../utils/catchAsync");
 const AppError = require("../../utils/appError");
 
 exports.getAllUsers = catchAsync(async (req, res) => {

@@ -23,34 +23,40 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 exports.signUp = catchAsync(async (req, res, next) => {
-  console.log(req.body.password);
-  if (req.body.password !== req.body.passwordConfirm) {
-    return res.status(400).json({
-      status: "fail",
-      message: "Passwords do not match",
+  try {
+    if (req.body.password !== req.body.passwordConfirm) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Passwords do not match",
+      });
+    }
+    console.log(req.body);
+
+    const user = await User.create({
+      userName: req.body.userName,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: req.body.password,
+      passwordConfirm: req.body.passwordConfirm,
     });
-  }
-  console.log(req.body);
 
-  const user = await User.create({
-    userName: req.body.userName,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
-    passwordConfirm: req.body.passwordConfirm,
-  });
+    console.log(user);
+    if (!user) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Invalid user data",
+      });
+    }
 
-  console.log(user);
-  if (!user) {
-    return res.status(400).json({
+    createSendToken(user, 201, res);
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({
       status: "fail",
       message: "Invalid user data",
     });
   }
-
-  createSendToken(user, 201, res);
-  console.log(err);
 });
 
 exports.logIn = catchAsync(async (req, res, next) => {
