@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const promisify = require("util").promisify;
 const User = require("../src/users/usersModel");
-const expressAsyncHandler = require("express-async-handler");
+const catchAsync = require("../utils/catchAsync");
 
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -22,25 +22,38 @@ const createSendToken = (user, statusCode, res) => {
   res.status(statusCode).json({ status: "success", token, data: { user } });
 };
 
-exports.signUp = expressAsyncHandler(async (req, res, next) => {
+exports.signUp = catchAsync(async (req, res, next) => {
+  console.log(req.body.password);
   if (req.body.password !== req.body.passwordConfirm) {
     return res.status(400).json({
       status: "fail",
       message: "Passwords do not match",
     });
   }
+  console.log(req.body);
+
   const user = await User.create({
     userName: req.body.userName,
-    fristName: req.body.fristName,
+    firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
   });
+
+  console.log(user);
+  if (!user) {
+    return res.status(400).json({
+      status: "fail",
+      message: "Invalid user data",
+    });
+  }
+
   createSendToken(user, 201, res);
+  console.log(err);
 });
 
-exports.logIn = expressAsyncHandler(async (req, res, next) => {
+exports.logIn = catchAsync(async (req, res, next) => {
   console.log(req.body);
   const { email, password } = req.body;
   if (!email || !password) {
@@ -59,7 +72,7 @@ exports.logIn = expressAsyncHandler(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
-exports.protect = expressAsyncHandler(async (req, res, next) => {
+exports.protect = catchAsync(async (req, res, next) => {
   let token;
   if (req.cookies.jwt) {
     token = req.cookies.jwt;

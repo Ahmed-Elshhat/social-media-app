@@ -1,8 +1,8 @@
 const User = require("./usersModel");
-const expressAsyncHandler = require("express-async-handler");
+const catchAsync = require("express-async-handler");
 const AppError = require("../../utils/appError");
 
-exports.getAllUsers = expressAsyncHandler(async (req, res) => {
+exports.getAllUsers = catchAsync(async (req, res) => {
   const users = await User.find();
   if (!users || users.length === 0) {
     return next(new AppError("No users found", 404));
@@ -16,7 +16,7 @@ exports.getAllUsers = expressAsyncHandler(async (req, res) => {
   });
 });
 
-exports.getUser = expressAsyncHandler(async (req, res, next) => {
+exports.getUser = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
   const user = await User.findById(id);
@@ -32,7 +32,7 @@ exports.getUser = expressAsyncHandler(async (req, res, next) => {
   });
 });
 
-exports.updateUser = expressAsyncHandler(async (req, res, next) => {
+exports.updateUser = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const updates = req.body;
 
@@ -53,7 +53,7 @@ exports.updateUser = expressAsyncHandler(async (req, res, next) => {
 });
 
 // Delete User
-exports.deleteUser = expressAsyncHandler(async (req, res, next) => {
+exports.deleteUser = catchAsync(async (req, res, next) => {
   const user = await User.findByIdAndDelete(req.params.id);
   if (!user) {
     return next(new AppError(`User not found with id: ${req.params.id}`, 404));

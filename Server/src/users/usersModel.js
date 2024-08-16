@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema(
       required: [true, "Please provide a username"],
       unique: true,
     },
-    fristName: {
+    firstName: {
       type: String,
       required: [true, "Please provide a first name"],
     },
