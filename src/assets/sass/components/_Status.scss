@@ -8,15 +8,15 @@
   .carousel {
     width: 100%;
     direction: ltr;
-    cursor: grab;
     overflow: hidden;
+    cursor: grab;
     .inner-carousel {
       display: flex;
       gap: 10px;
       .item {
+        position: relative;
         min-width: 129px;
         min-height: 190px;
-        position: relative;
         overflow: hidden;
         @include borderRadius(15px);
         img {
@@ -25,14 +25,15 @@
           pointer-events: none;
           object-fit: cover;
         }
+        
         .image {
           position: absolute;
           top: 75%;
           left: 50%;
           width: 55px;
           height: 55px;
-          border: 3px solid blue;
           overflow: hidden;
+          border: 3px solid blue;
           @include borderRadius(50%);
           transform: translate(-50%, -50%);
           -webkit-transform: translate(-50%, -50%);

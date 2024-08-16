@@ -7,9 +7,9 @@
   border: 1px solid rgba(37, 37, 39, 0.41);
   @include borderRadius(16px);
   .person-img-and-input {
-    width: 100%;
     @extend %df-j-start-a-cent;
     gap: 15px;
+    width: 100%;
     padding: 20px 20px;
     .image {
       width: 45px;
@@ -23,6 +23,7 @@
         cursor: pointer;
       }
     }
+    
     .input {
       color: #666666;
       @extend %df-j-start-a-cent;

@@ -23,7 +23,7 @@
         justify-content: flex-end;
         width: 100%;
       }
-      
+
       ul {
         @extend %df-j-bet-a-cent;
         list-style: none;
@@ -67,7 +67,6 @@
             }
 
             .image {
-              
               background-color: transparent;
               width: 40px;
               height: 40px;
@@ -104,69 +103,76 @@
 
     .search {
       position: relative;
-      z-index: 10;
-      width: 261.25px;
-      height: 40px;
-      overflow: hidden;
-      @include borderRadius(15px);
-      @include transition(all, 0.5s, 0s, ease-in-out);
-      
-      @media (max-width: 900px) {
-        width: 55px;
-        min-width: 55px;
-      }
-
-      input {
-        width: 100%;
-        height: 100%;
-        padding: 10px 60px 10px 10px;
-        border: none;
-        outline: none;
+      .search-container {
+        position: relative;
+        z-index: 10;
+        width: 261.25px;
+        height: 40px;
+        overflow: hidden;
         @include borderRadius(15px);
         @include transition(all, 0.5s, 0s, ease-in-out);
-
+  
         @media (max-width: 900px) {
-          display: none;
+          width: 55px;
+          min-width: 55px;
         }
-
-        &::placeholder {
-          color: rgba(0, 0, 0, 53%);
+  
+        input {
+          width: 100%;
+          height: 100%;
+          padding: 10px 60px 10px 10px;
+          border: none;
+          outline: none;
+          @include borderRadius(15px);
+          @include transition(all, 0.5s, 0s, ease-in-out);
+  
+          @media (max-width: 900px) {
+            display: none;
+          }
+  
+          &::placeholder {
+            color: rgba(0, 0, 0, 53%);
+          }
         }
-      }
-
-      i {
-        background-color: #8e8e8e;
-        @extend%df-j-cent-a-cent;
-        position: absolute;
-        top: 1%;
-        right: 0px;
-        width: 50px;
-        height: 40px;
-        cursor: pointer;
-        @include borderRadius(10px);
+  
+        i {
+          background-color: #8e8e8e;
+          @extend%df-j-cent-a-cent;
+          position: absolute;
+          top: 1%;
+          right: 0px;
+          width: 50px;
+          height: 40px;
+          cursor: pointer;
+          @include borderRadius(10px);
+        }
       }
 
       .results-search {
         background-color: #555;
-        display: none;
-        position: fixed;
+        // display: none;
+        position: absolute;
         top: 20px;
-        right: 15px;
-        z-index: -1;
+        right: 0;
+        z-index: 1;
         width: 261.25px;
         height: fit-content;
-        padding-top: 37px;
+        height: 0px;
+        // padding-top: 37px;
         overflow: hidden;
         @include borderRadius(15px);
         @include transition(all, 0.5s, 0s, ease-in-out);
-        
+        @media (max-width: 500px) {
+          display: none;
+        }
+
         .results-search-item {
           @extend %df-a-cent;
           gap: 8px;
           height: 50px;
           padding: 5px 10px;
-          @include transition(all, 0.2s, 0s, ease-in-out);
           cursor: pointer;
+          @include transition(all, 0.2s, 0s, ease-in-out);
 
           &:hover {
             background-color: #666;
@@ -192,7 +198,7 @@
             color: white;
             font: {
               size: 16px;
-              weight: bold
+              weight: bold;
             }
           }
         }

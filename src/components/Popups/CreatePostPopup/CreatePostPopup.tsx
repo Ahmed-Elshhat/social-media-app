@@ -15,6 +15,9 @@ function CreatePostPopup() {
     (state) => state.createPostWindow.createPostIsOpen
   );
 
+  // Dispatch
+  const dispatch = useAppDispatch();
+
   // Form
   const [form, setForm] = useState<createPostFormState>({
     text: "",
@@ -24,11 +27,16 @@ function CreatePostPopup() {
   // Images
   const [images, setImages] = useState<File[]>([]);
 
+  // Show All Images
+  const [showAllImages, setShowAllImages] = useState<boolean>(false);
+
   // Input Images
   const inputImage = useRef<HTMLInputElement | null>(null);
 
-  // Dispatch
-  const dispatch = useAppDispatch();
+  // Handle Open Input Images
+  function openInput() {
+    inputImage.current?.click();
+  }
 
   // Handle Close Window
   useEffect(() => {
@@ -63,12 +71,7 @@ function CreatePostPopup() {
   function handleChanges(
     e: React.ChangeEvent<HTMLSelectElement | HTMLTextAreaElement>
   ) {
-    setForm({...form , [e.target.name]: e.target.value})
-  }
-
-  // Handle Open Input Images
-  function openInput() {
-    inputImage.current?.click();
+    setForm({ ...form, [e.target.name]: e.target.value });
   }
 
   // Handle Delete Image
@@ -78,11 +81,19 @@ function CreatePostPopup() {
 
   if (element) {
     return ReactDOM.createPortal(
-      isOpen && (
-        <div className="create-post-popup">
+      <div
+        className="create-post-popup"
+        style={{ height: isOpen ? "100%" : "0px", overflow: "hidden" }}
+      >
+        <div
+          className="create-post-container"
+          style={{ height: images.length > 0 ? "95vh" : "390px" }}
+        >
           <div
-            className="create-post-container"
-            style={{ height: images.length > 0 ? "600px" : "390px" }}
+            className="create-section"
+            style={{
+              left: showAllImages ? (images.length > 0 ? "100%" : "0%") : "0%",
+            }}
           >
             <header>
               <div className="title-and-close">
@@ -116,7 +127,6 @@ function CreatePostPopup() {
               name="text"
               value={form.text}
               onChange={handleChanges}
-              style={{ height: images.length > 0 ? "70px" : "100px" }}
             />
 
             {images.length > 0 && (
@@ -135,39 +145,94 @@ function CreatePostPopup() {
                       ? "images-container-exceeds-4"
                       : ""
                   }`}
+                  style={images.length > 1 ? { overflowX: "hidden" } : {}}
                 >
-                  {images.map((img, i) => (
+                  {images.map((item, i) => (
                     <div
                       className="image"
                       key={i}
                       data-imagecount={`${images.length - 4} +`}
+                      onClick={() => setShowAllImages(true)}
                     >
-                      <img
-                        src={URL.createObjectURL(img)}
-                        alt="5"
-                        draggable="false"
-                      />
+                      {item.type.includes("video") ? (
+                        <video>
+                          <source
+                            src={URL.createObjectURL(item)}
+                            type="video/mp4"
+                          />
+                        </video>
+                      ) : (
+                        <img
+                          src={URL.createObjectURL(item)}
+                          alt="5"
+                          draggable="false"
+                        />
+                      )}
                     </div>
                   ))}
                 </div>
               </div>
             )}
 
-            <div className="add-images">
-              <input
-                type="file"
-                multiple
-                ref={inputImage}
-                onChange={handleImageChange}
-              />
-              <i className="fa-regular fa-image" onClick={openInput}></i>
-              <h3>Add To You Post</h3>
-            </div>
+            <div className="add-image-and-create">
+              <div className="add-images">
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*,video/*"
+                  ref={inputImage}
+                  onChange={handleImageChange}
+                />
+                <i className="fa-regular fa-image" onClick={openInput}></i>
+                <h3>Add To You Post</h3>
+              </div>
 
-            <button className="send-btn">Create</button>
+              <button className="send-btn">Create</button>
+            </div>
+          </div>
+
+          <div
+            className="images-section"
+            style={{
+              left: showAllImages
+                ? images.length > 0
+                  ? "0%"
+                  : "-100%"
+                : "-100%",
+            }}
+          >
+            <div className="go-back">
+              <i
+                className="fa-solid fa-arrow-right"
+                onClick={() => setShowAllImages(false)}
+              ></i>
+            </div>
+            <div className="images">
+              {images.map((item) => (
+                <div className="image">
+                  <button
+                    onClick={() =>
+                      setImages(images.filter((img) => img !== item))
+                    }
+                  >
+                    <i className="fa-solid fa-xmark"></i>
+                  </button>
+                  {item.type.includes("video") ? (
+                    <video>
+                      <source
+                        src={URL.createObjectURL(item)}
+                        type="video/mp4"
+                      />
+                    </video>
+                  ) : (
+                    <img src={URL.createObjectURL(item)} alt="image" />
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      ),
+      </div>,
       element
     );
   }

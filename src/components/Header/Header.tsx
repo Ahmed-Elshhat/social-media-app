@@ -11,6 +11,8 @@ function Header() {
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const input = useRef<HTMLInputElement | null>(null);
   const searchContainer = useRef<HTMLDivElement | null>(null);
+  const resultsSearch = useRef<HTMLDivElement | null>(null);
+  const count = useRef<number>(0);
   const navigate = useNavigate();
   useEffect(() => {
     if (windowSize < 900 && windowSize > 500) {
@@ -32,6 +34,22 @@ function Header() {
   // Search Function
   function search() {
     console.log("search");
+  }
+
+  // handleOnKeyUp
+  function handleOnKeyUp() {
+    if (resultsSearch.current) {
+      const Height = resultsSearch.current?.scrollHeight;
+      if (searchInput) {
+        count.current++;
+        resultsSearch.current.style.height = `${searchInput.length === 1 && count.current === 1 ? Height + 37 : Height}px`;
+        resultsSearch.current.style.paddingTop = `37px`;
+      } else {
+        count.current = 0;
+        resultsSearch.current.style.height = "0px";
+        resultsSearch.current.style.paddingTop = `0px`;
+      }
+    }
   }
   return (
     <header className="header">
@@ -97,52 +115,62 @@ function Header() {
           </ul>
         </nav>
 
-        <div
-          ref={searchContainer}
-          className="search"
-          style={{
-            minWidth:
-              windowSize < 900 && windowSize > 500
-                ? searchOpen
-                  ? "261.25px"
-                  : "55px"
-                : windowSize <= 500
-                ? "55px"
-                : "261.25px",
-          }}
-        >
-          <input
-            ref={input}
-            type="text"
-            value={searchInput}
-            placeholder="Search People"
-            onChange={(e) => setSearchInput(e.target.value)}
-            className="search-item"
+        <div className="search">
+          <div
+            ref={searchContainer}
+            className="search-container"
             style={{
-              display:
+              minWidth:
                 windowSize < 900 && windowSize > 500
                   ? searchOpen
-                    ? "block"
-                    : "none"
+                    ? "261.25px"
+                    : "55px"
                   : windowSize <= 500
-                  ? "none"
-                  : "block",
+                  ? "55px"
+                  : "261.25px",
             }}
-          />
-          <i
-            className="fa-solid fa-magnifying-glass search-item"
-            onClick={() =>
-              windowSize < 900 && windowSize > 500
-                ? searchOpen
-                  ? search()
-                  : setSearchOpen(true)
-                : windowSize <= 500
-                ? navigate("/search")
-                : search()
-            }
-          ></i>
+          >
+            <input
+              ref={input}
+              type="text"
+              value={searchInput}
+              placeholder="Search People"
+              onChange={(e) => setSearchInput(e.target.value)}
+              onKeyUp={handleOnKeyUp}
+              className="search-item"
+              style={{
+                display:
+                  windowSize < 900 && windowSize > 500
+                    ? searchOpen
+                      ? "block"
+                      : "none"
+                    : windowSize <= 500
+                    ? "none"
+                    : "block",
+              }}
+            />
+            <i
+              className="fa-solid fa-magnifying-glass search-item"
+              onClick={() =>
+                windowSize < 900 && windowSize > 500
+                  ? searchOpen
+                    ? search()
+                    : setSearchOpen(true)
+                  : windowSize <= 500
+                  ? navigate("/search")
+                  : search()
+              }
+            ></i>
+          </div>
 
-          <div className="results-search">
+          <div ref={resultsSearch} className="results-search">
+            <div className="results-search-item">
+              <div className="image">
+                <img src={personImg} alt="" />
+              </div>
+              <span className="name">Ahmed</span>
+            </div>
+
             <div className="results-search-item">
               <div className="image">
                 <img src={personImg} alt="" />

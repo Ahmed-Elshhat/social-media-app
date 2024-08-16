@@ -115,7 +115,7 @@ function Login() {
 
             <div className="signup-btn">
               Don&#39;t have account?
-              <Link to="/signup">
+              <Link to="/register">
                 sign up
               </Link>
             </div>
