@@ -18,7 +18,6 @@ const usersRoutes = require("./src/users/usersRoutes.js");
 
 app.use("/api/v1/users", usersRoutes);
 
-swagger(app);
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
