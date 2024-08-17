@@ -4,7 +4,7 @@ import Logo from "../../../images/logo.png";
 import "./Login.scss";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { BASE_URL, LOGIN, USERS } from "../../../components/Api/Endpointes";
+// import { BASE_URL, LOGIN, USERS } from "../../../components/Api/Endpointes";
 
 function Login() {
   const [form, setForm] = useState({
@@ -30,7 +30,7 @@ function Login() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     try {
-      const res = await axios.post(`${BASE_URL}/${USERS}/${LOGIN}`, {
+      const res = await axios.post("https://reqres.in/api/login"/* `${BASE_URL}/${USERS}/${LOGIN}` */, {
         email: form.email,
         password: form.password,
       });
@@ -41,7 +41,7 @@ function Login() {
   }
 
   return (
-    <section className="login">
+    <section className="login"  style={{direction: lang === "ar"? "rtl" : "ltr"}}>
       <div className="container">
         <Link to="/">
           <div className="logo">

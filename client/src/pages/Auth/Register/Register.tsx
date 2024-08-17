@@ -16,12 +16,14 @@ function Register() {
     passwordConfirm: "",
   });
   const [showPassStatus, setShowPassStatus] = useState<boolean>(false);
+  const lang: string = "en";
 
   // Handle Changes
   function handleChanges(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
+  // Handle Submit
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
@@ -40,9 +42,11 @@ function Register() {
     }
   };
 
-  //     <section className="signup h-screen">
   return (
-    <section className="register">
+    <section
+      className="register"
+      style={{ direction: lang === "ar" ? "rtl" : "ltr" }}
+    >
       <div className="container">
         <Link to="/">
           <div className="logo">
@@ -50,126 +54,145 @@ function Register() {
           </div>
         </Link>
 
-        <div className="register-content">
-          <div className="form-side">
-            <h2>welcome back</h2>
-            <form onSubmit={handleSubmit}>
-              <div className="first-name">
-                <label htmlFor="firstName">First Name</label>
-                <input
-                  type="text"
-                  name="firstName"
-                  id="firstName"
-                  placeholder="First Name"
-                  autoComplete="off"
-                  onChange={handleChanges}
-                />
+        <div className="register-content-container">
+          <div className="register-content">
+            <div className="form-side">
+              <form onSubmit={handleSubmit}>
+                <div className="first-and-last-name inputs">
+                  <div className="first-name">
+                    <label htmlFor="firstName">First Name</label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      id="firstName"
+                      placeholder="First Name"
+                      autoComplete="off"
+                      onChange={handleChanges}
+                    />
+                  </div>
+
+                  <div className="last-name inputs">
+                    <label htmlFor="lastName">Last Name</label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      id="lastName"
+                      placeholder="Last name"
+                      autoComplete="off"
+                      onChange={handleChanges}
+                    />
+                  </div>
+                </div>
+
+                <div className="username inputs">
+                  <label htmlFor="userName">Username</label>
+                  <input
+                    type="text"
+                    name="userName"
+                    id="userName"
+                    placeholder="Username"
+                    autoComplete="off"
+                    onChange={handleChanges}
+                  />
+                </div>
+
+                <div className="email inputs">
+                  <label htmlFor="email">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Email"
+                    autoComplete="off"
+                    onChange={handleChanges}
+                  />
+                </div>
+
+                <div className="pass-and-confirm-pass inputs">
+                  <div className="password">
+                    <label htmlFor="password">Password</label>
+                    <input
+                      type={showPassStatus ? "text" : "password"}
+                      name="password"
+                      id="password"
+                      placeholder="Password"
+                      onChange={handleChanges}
+                      style={{
+                        padding:
+                          lang === "ar"
+                            ? "5px 20px 5px 40px"
+                            : "5px 40px 5px 20px",
+                      }}
+                    />
+
+                    {showPassStatus ? (
+                      <i
+                        className="fa-sharp fa-solid fa-eye"
+                        onClick={() => setShowPassStatus(false)}
+                        style={{ right: lang === "ar" ? "86%" : "3%" }}
+                      ></i>
+                    ) : (
+                      <i
+                        className="fa-sharp fa-solid fa-eye-slash"
+                        onClick={() => setShowPassStatus(true)}
+                        style={{ right: lang === "ar" ? "86%" : "3%" }}
+                      ></i>
+                    )}
+                  </div>
+
+                  <div className="confirm-pass">
+                    <label htmlFor="password-confirm">Password Confirm</label>
+                    <input
+                      type={showPassStatus ? "text" : "password"}
+                      name="passwordConfirm"
+                      id="password-confirm"
+                      placeholder="Password Confirm"
+                      onChange={handleChanges}
+                      style={{
+                        padding:
+                          lang === "ar"
+                            ? "5px 20px 5px 40px"
+                            : "5px 40px 5px 20px",
+                      }}
+                    />
+
+                    {showPassStatus ? (
+                      <i
+                        className="fa-sharp fa-solid fa-eye"
+                        onClick={() => setShowPassStatus(false)}
+                        style={{ right: lang === "ar" ? "86%" : "3%" }}
+                      ></i>
+                    ) : (
+                      <i
+                        className="fa-sharp fa-solid fa-eye-slash"
+                        onClick={() => setShowPassStatus(true)}
+                        style={{ right: lang === "ar" ? "86%" : "3%" }}
+                      ></i>
+                    )}
+                  </div>
+                </div>
+
+                <div className="form-btns">
+                  <button type="submit" onSubmit={handleSubmit}>
+                    sign UP
+                  </button>
+                  <button>sign UP with google</button>
+                </div>
+
+                <h3>or register by</h3>
+
+                <button className="register-google">g</button>
+              </form>
+
+              <div className="login-btn">
+                Don&#39;t have account?
+                <Link to="/login">login</Link>
               </div>
-
-              <div className="last-name">
-                <label htmlFor="lastName">Last Name</label>
-                <input
-                  type="text"
-                  name="lastName"
-                  id="lastName"
-                  placeholder="Last-name"
-                  autoComplete="off"
-                  onChange={handleChanges}
-                />
-              </div>
-
-              <div className="username">
-                <label htmlFor="userName">Username</label>
-                <input
-                  type="text"
-                  name="userName"
-                  id="userName"
-                  placeholder="Username"
-                  autoComplete="off"
-                  onChange={handleChanges}
-                />
-              </div>
-
-              <div className="email">
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="Email"
-                  autoComplete="off"
-                  onChange={handleChanges}
-                />
-              </div>
-
-              <div className="password">
-                <label htmlFor="password" className="block">
-                  Password
-                </label>
-                <input
-                  type={showPassStatus ? "text" : "password"}
-                  name="password"
-                  id="password"
-                  placeholder="Password"
-                  onChange={handleChanges}
-                />
-
-                {showPassStatus ? (
-                  <i
-                    className="fa-sharp fa-solid fa-eye"
-                    onClick={() => setShowPassStatus(false)}
-                  ></i>
-                ) : (
-                  <i
-                    className="fa-sharp fa-solid fa-eye-slash"
-                    onClick={() => setShowPassStatus(true)}
-                  ></i>
-                )}
-              </div>
-
-              <div className="confirm-pass">
-                <label htmlFor="password-confirm">Password Confirm</label>
-                <input
-                  type={showPassStatus ? "text" : "password"}
-                  name="passwordConfirm"
-                  id="password-confirm"
-                  placeholder="Password Confirm"
-                  onChange={handleChanges}
-                />
-
-                {showPassStatus ? (
-                  <i
-                    className="fa-sharp fa-solid fa-eye"
-                    onClick={() => setShowPassStatus(false)}
-                  ></i>
-                ) : (
-                  <i
-                    className="fa-sharp fa-solid fa-eye-slash"
-                    onClick={() => setShowPassStatus(true)}
-                  ></i>
-                )}
-              </div>
-
-              <div className="form-btns">
-                <button type="submit" onSubmit={handleSubmit}>
-                  sign UP
-                </button>
-                <button>sign UP with google</button>
-              </div>
-
-              <h3>or signup by</h3>
-
-              <button className="register-google">g</button>
-            </form>
-
-            <div className="register-btn">
-              Don&#39;t have account?
-              <Link to="/register">register</Link>
             </div>
-          </div>
 
-          <div className="img-side">
-            <img src={SignUpImage} alt="signup image" />
+            <div className="img-side">
+              <img src={SignUpImage} alt="register image" />
+            </div>
           </div>
         </div>
       </div>
