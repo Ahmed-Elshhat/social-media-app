@@ -1,33 +1,33 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
-const bcrypt = require("bcryptjs");
+const mongoose = require('mongoose');
+const validator = require('validator');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema(
   {
     userName: {
       type: String,
-      required: [true, "Please provide a username"],
+      required: [true, 'Please provide a username'],
       unique: true,
     },
     firstName: {
       type: String,
-      required: [true, "Please provide a first name"],
+      required: [true, 'Please provide a first name'],
     },
     lastName: {
       type: String,
-      required: [true, "Please provide a last name"],
+      required: [true, 'Please provide a last name'],
     },
     email: {
       type: String,
-      required: [true, "Please provide an email address"],
+      required: [true, 'Please provide an email address'],
       unique: true,
       lowercase: true,
-      validate: [validator.isEmail, "Please provide a valid email address"],
+      validate: [validator.isEmail, 'Please provide a valid email address'],
     },
-
+    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Friend' }],
     password: {
       type: String,
-      required: [true, "Please provide a password"],
+      required: [true, 'Please provide a password'],
       minlength: 8,
       select: false, // Exclude from queries by default
     },
@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema(
         validator: function (el) {
           return el === this.password;
         },
-        message: "Passwords are not the same!",
+        message: 'Passwords are not the same!',
       },
     },
     passwordChangedAt: Date,
@@ -55,27 +55,24 @@ const userSchema = new mongoose.Schema(
 );
 
 // Middleware to hash password before saving
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
 
   this.password = await bcrypt.hash(this.password, 12);
   this.passwordConfirm = undefined;
   next();
 });
-userSchema.pre("save", function (next) {
-  if (!this.isModified("password") || this.isNew) return next();
+userSchema.pre('save', function (next) {
+  if (!this.isModified('password') || this.isNew) return next();
   this.passwordChangedAt = Date.now() - 1000;
   next();
 });
 
 // Method to check if passwords match
-userSchema.methods.correctPassword = async function (
-  candidatePassword,
-  userPassword
-) {
+userSchema.methods.correctPassword = async function (candidatePassword, userPassword) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
