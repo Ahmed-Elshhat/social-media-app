@@ -1,47 +1,115 @@
-import { useState, useRef, FormEvent, ChangeEvent } from "react";
+import { useState, useRef, FormEvent, ChangeEvent, useEffect } from "react";
 import LoginImage from "../../../images/login-image.png";
 import Logo from "../../../images/logo.png";
 import "./Login.scss";
 import { Link } from "react-router-dom";
 import axios from "axios";
-// import { BASE_URL, LOGIN, USERS } from "../../../components/Api/Endpointes";
+import { BASE_URL, LOGIN, USERS } from "../../../components/Api/Endpointes";
 
 function Login() {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+
   const [showPassStatus, setShowPassStatus] = useState<boolean>(false);
-  const checkbox = useRef<HTMLInputElement | null>(null);
+
+  // Validation state
+  const [validation, setValidation] = useState({
+    isValid: true,
+    errors: {
+      email: "",
+      password: "",
+    },
+  });
+
+  // Language page status
   const lang: string = "en";
 
+  const checkbox = useRef<HTMLInputElement | null>(null);
+
+  // Prevents the effect from running at the first load
+  const count = useRef(0);
+
+  useEffect(() => {
+    if (count.current !== 0) {
+      validateForm();
+    }
+  }, [form.password, form.email]);
+
+  // Handle click for change checkbox status
   const handleIconClick = () => {
     if (checkbox.current) {
       checkbox.current.checked = !checkbox.current.checked;
     }
   };
 
-  // Handle Changes
+  // Handle changes
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  // Handle Submit
+  // Validate form
+  function validateForm() {
+    let emailError = "";
+    let passwordError = "";
+
+    const emailRegex = /^[a-zA-Z0-9]+@(gmail|yahoo)\.com$/;
+    if (!emailRegex.test(form.email)) {
+      emailError = "Email is not valid";
+    }
+
+    if (form.password.length < 8) {
+      passwordError = "Password must be at least 8 characters";
+    }
+
+    if (emailError || passwordError) {
+      setValidation({
+        isValid: false,
+        errors: {
+          email: emailError,
+          password: passwordError,
+        },
+      });
+      return false;
+    }
+
+    setValidation({ isValid: true, errors: { email: "", password: "" } });
+    return true;
+  }
+
+  // Handle submit
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    count.current = 1;
+
+    if (!validateForm()) {
+      return;
+    }
+
     try {
-      const res = await axios.post("https://reqres.in/api/login"/* `${BASE_URL}/${USERS}/${LOGIN}` */, {
+      const res = await axios.post(`${BASE_URL}/${USERS}/${LOGIN}`, {
         email: form.email,
         password: form.password,
       });
       console.log(res.data);
     } catch (err) {
+      setValidation({
+        isValid: false,
+        errors: {
+          email: "Invalid email or password",
+          password: "Invalid email or password",
+        },
+      });
       console.log(err);
     }
   }
 
   return (
-    <section className="login"  style={{direction: lang === "ar"? "rtl" : "ltr"}}>
+    <section
+      className="login"
+      style={{ direction: lang === "ar" ? "rtl" : "ltr" }}
+    >
       <div className="container">
         <Link to="/">
           <div className="logo">
@@ -52,10 +120,6 @@ function Login() {
         <div className="login-content-container">
           <div className="login-content">
             <div className="form-side">
-              {/* <h2>
-              welcome back
-            </h2> */}
-
               <form onSubmit={handleSubmit}>
                 <div className="email">
                   <label htmlFor="email">Email</label>
@@ -67,6 +131,10 @@ function Login() {
                     autoComplete="off"
                     onChange={handleChange}
                   />
+
+                  {validation.errors.email && (
+                    <p className="error">* {validation.errors.email}</p>
+                  )}
                 </div>
 
                 <div className="password">
@@ -98,6 +166,10 @@ function Login() {
                       style={{ right: lang === "ar" ? "90%" : "2%" }}
                     ></i>
                   )}
+
+                  {validation.errors.password && (
+                      <p className="error">* {validation.errors.password}</p>
+                    )}
                 </div>
 
                 <div className="check-and-forgot">

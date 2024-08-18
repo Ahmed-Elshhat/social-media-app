@@ -59,6 +59,13 @@
               @include borderRadius(10px);
             }
 
+            .error {
+              color: red;
+              margin-top: 10px;
+              text-transform: capitalize;
+              font-size: 15px;
+            }
+
             label {
               color: white;
               display: block;
@@ -104,6 +111,17 @@
             .first-and-last-name {
               @extend %df-j-bet-a-bl;
               gap: 10px;
+              .error {
+                color: red;
+                margin-top: 10px;
+                text-transform: capitalize;
+                font-size: 14px;
+                
+                @media (max-width: 470px) {
+                  font-size: 12px;
+                  
+                }
+              }
 
               .password,
               .confirm-pass,

@@ -23,7 +23,7 @@
       min-height: calc(100vh - 78px);
       @extend %df-a-cent;
       .login-content {
-        margin-top: 50px;
+        margin-top: 30px;
         width: 100%;
         @extend %df-j-bet-a-cent;
         @media (min-width: 600px) and (max-width: 1280px) {
@@ -33,7 +33,7 @@
         @media (max-width: 600px) {
           flex-direction: column-reverse;
           justify-content: space-between;
-          height: calc(101vh - 102px);
+          height: calc(100vh - 102px);
           margin-top: 19px;
         }
 
@@ -49,23 +49,6 @@
             padding: 5px 10px;
           }
 
-          // & > h2 {
-          //   width: 334px;
-          //   height: 60px;
-          //   margin: 0 0 50px;
-          //   font: {
-          //     family: "Poppins", sans-serif;
-          //     size: 40px;
-          //     weight: 800;
-          //   }
-          //   text-transform: uppercase;
-          //   text-align: center;
-          //   color: white;
-          //   @media (max-width: 600px) {
-          //     display: none;
-          //   }
-          // }
-
           form {
             @media (max-width: 600px) {
               position: relative;
@@ -76,6 +59,12 @@
               -moz-border-radius: 10px;
               -ms-border-radius: 10px;
               -o-border-radius: 10px;
+            }
+
+            .error {
+              color: red;
+              margin-top: 10px;
+              text-transform: capitalize;
             }
 
             :where(.email label, .password label) {
