@@ -9,6 +9,11 @@ const postSchema = new mongoose.Schema(
     },
     content: { type: String, required: true },
     likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    originalPostId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Post',
+      default: null,
+    },
     sharedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
     visibility: {

@@ -4,7 +4,7 @@ const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../../utils/appError');
 
 exports.getAllPosts = catchAsync(async (req, res) => {
-  const posts = await Posts.find().populate('comments');
+  const posts = await Posts.find().populate('originalPostId');
   if (!posts || posts.length === 0) {
     return next(new AppError('No posts found', 404));
   }
@@ -17,7 +17,7 @@ exports.getAllPosts = catchAsync(async (req, res) => {
   });
 });
 exports.getAllUserPosts = catchAsync(async (req, res) => {
-  const post = await Posts.find({ userId: req.params.userId }).lean();
+  const post = await Posts.find({ userId: req.params.userId }).populate('originalPostId').lean();
   if (!post || post.length === 0) {
     return next(new AppError('No posts found', 404));
   }
@@ -39,7 +39,7 @@ exports.getAllUserPosts = catchAsync(async (req, res) => {
 exports.getPost = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
-  const post = await Posts.findById(id).populate('comments');
+  const post = await Posts.findById(id).populate('originalPostId');
 
   if (!post) {
     return next(new AppError(`Post not found with id: ${id}`, 404));
@@ -53,7 +53,7 @@ exports.getPost = catchAsync(async (req, res, next) => {
 });
 
 exports.openPostComments = catchAsync(async (req, res, next) => {
-  const post = await Posts.findById(req.params.id).populate('comments');
+  const post = await Posts.findById(req.params.id).populate('originalPostId');
   if (!post) {
     return next(new AppError(`Post not found with id: ${req.params.id}`, 404));
   }
