@@ -21,7 +21,6 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 exports.signUp = catchAsync(async (req, res, next) => {
-  try {
     if (req.body.password !== req.body.passwordConfirm) {
       return res.status(400).json({
         status: 'fail',
