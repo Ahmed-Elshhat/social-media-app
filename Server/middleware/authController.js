@@ -21,26 +21,23 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 exports.signUp = catchAsync(async (req, res, next) => {
-    if (req.body.password !== req.body.passwordConfirm) {
-      return res.status(400).json({
-        status: 'fail',
-        message: 'Passwords do not match',
-      });
-    }
-   
-
-    const user = await User.create({
-      userName: req.body.userName,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      password: req.body.password,
-      passwordConfirm: req.body.passwordConfirm,
+  if (req.body.password !== req.body.passwordConfirm) {
+    return res.status(400).json({
+      status: 'fail',
+      message: 'Passwords do not match',
     });
+  }
 
+  const user = await User.create({
+    userName: req.body.userName,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    password: req.body.password,
+    passwordConfirm: req.body.passwordConfirm,
+  });
 
-    createSendToken(user, 201, res);
-
+  createSendToken(user, 201, res);
 });
 
 exports.logIn = catchAsync(async (req, res, next) => {

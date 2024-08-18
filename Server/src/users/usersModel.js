@@ -29,12 +29,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please provide a password'],
       minlength: 8,
-      select: false, // Exclude from queries by default
+      select: false,
     },
     passwordConfirm: {
       type: String,
       validate: {
-        // This only works on CREATE and SAVE!!!
         validator: function (el) {
           return el === this.password;
         },
@@ -62,6 +61,7 @@ userSchema.pre('save', async function (next) {
   this.passwordConfirm = undefined;
   next();
 });
+
 userSchema.pre('save', function (next) {
   if (!this.isModified('password') || this.isNew) return next();
   this.passwordChangedAt = Date.now() - 1000;
