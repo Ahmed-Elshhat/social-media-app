@@ -41,13 +41,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
 
 
     createSendToken(user, 201, res);
-  } catch (err) {
-    console.log(err);
-    res.status(400).json({
-      status: 'fail',
-      message: 'Invalid user data',
-    });
-  }
+
 });
 
 exports.logIn = catchAsync(async (req, res, next) => {
