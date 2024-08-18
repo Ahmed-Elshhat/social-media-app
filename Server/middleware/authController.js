@@ -28,7 +28,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
         message: 'Passwords do not match',
       });
     }
-    console.log(req.body);
+   
 
     const user = await User.create({
       userName: req.body.userName,
@@ -39,13 +39,6 @@ exports.signUp = catchAsync(async (req, res, next) => {
       passwordConfirm: req.body.passwordConfirm,
     });
 
-    console.log(user);
-    if (!user) {
-      return res.status(400).json({
-        status: 'fail',
-        message: 'Invalid user data',
-      });
-    }
 
     createSendToken(user, 201, res);
   } catch (err) {
